@@ -4,7 +4,7 @@ namespace ChacheTest.Application
 {
     public class Chache
     {
-        private static IMemoryCache _cache;
+        private readonly IMemoryCache _cache;
         public Chache(IMemoryCache memoryCache)
         {
             _cache = memoryCache;

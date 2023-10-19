@@ -13,12 +13,22 @@ namespace CacheTest.Controllers
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMemoryCache _memoryCache;
         private readonly Chache _chache;
-        public WeatherForecastController(Chache chache,ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IMemoryCache memoryCache,ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
             //_memoryCache = memoryCache;
-            _chache = chache;
+            _chache = new Chache(memoryCache);
         }
+        [HttpPost]
+        public IActionResult Post()
+        {
+            string key = "123";
+            
+            _chache.AddToCache(key, "salom");
+
+            return Ok();
+        }
+
         //[HttpPost("[action]")]
         //public IActionResult Set(string name)
         //{
@@ -42,37 +52,20 @@ namespace CacheTest.Controllers
         //    return Ok(res);
         //}
 
-        [HttpPost]
-        public IActionResult Post()
-        {
-            string key = "123";
-            
-            //User user = new User()
-            //{
-            //    Id = 1,
-            //    Email = "abdurasulov@gamail.com",
-            //    Name = "javlon"
-            //};
-            //_memoryCache.Set(key,"salom");
 
-            _chache.AddToCache(key, "salom");
-
-            return Ok();
-        }
-
-        [HttpGet]
-        public IActionResult GetObj()
-        {
-            string key = "123";
-            User user = new User()
-            {
-                Id = 1,
-                Email = "abdurasulov@gamail.com",
-                Name = "javlon"
-            };
-            User obj = _memoryCache.Get<User>(key);
-            return Ok(obj);
-        }
+        //[HttpGet]
+        //public IActionResult GetObj()
+        //{
+        //    string key = "123";
+        //    User user = new User()
+        //    {
+        //        Id = 1,
+        //        Email = "abdurasulov@gamail.com",
+        //        Name = "javlon"
+        //    };
+        //    User obj = _memoryCache.Get<User>(key);
+        //    return Ok(obj);
+        //}
 
 
 

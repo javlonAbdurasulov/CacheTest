@@ -12,13 +12,11 @@ namespace Cache.Get.Controllers
         
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly MemoryCache _memoryCache;
         private readonly Chache _chache;
 
         public WeatherForecastController(IMemoryCache memoryCache,ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            //_memoryCache = memoryCache;
             _chache =new Chache(memoryCache);
         }
         [HttpGet]
