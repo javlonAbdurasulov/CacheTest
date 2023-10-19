@@ -24,9 +24,9 @@ namespace CacheTest.Controllers
         {
             string key = "123";
             
-            _chache.AddToCache(key, "salom");
+            //_chache.AddToCache("123", "salom");
 
-            return Ok();
+            return Ok(_chache.AddToCache("123", "salom"));
         }
 
         //[HttpPost("[action]")]

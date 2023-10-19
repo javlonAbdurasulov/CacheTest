@@ -24,7 +24,7 @@ namespace Cache.Get.Controllers
         {
             string key = "123";
             //var res = _memoryCache.Get(key);
-            var res = _chache.GetFromCache(key);
+            var res = _chache.GetFromCache("123");
             return Ok(res);
 
             //User user = new User()

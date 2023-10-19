@@ -9,9 +9,9 @@ namespace ChacheTest.Application
         {
             _cache = memoryCache;
         }
-        public void AddToCache(string key, string value)
+        public string AddToCache(string key, string value)
         {
-            _cache.Set(key,value);
+            return _cache.Set(key,value);
         }
 
         public string GetFromCache(string key)

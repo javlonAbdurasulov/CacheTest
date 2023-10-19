@@ -15,8 +15,8 @@ namespace CacheTest
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddMemoryCache();
             builder.Services.AddSingleton<Chache>();
+            builder.Services.AddMemoryCache();
 
 
             var app = builder.Build();

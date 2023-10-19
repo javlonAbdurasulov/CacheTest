@@ -16,9 +16,9 @@ namespace Cache.Get
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddSingleton<Chache>();
             builder.Services.AddMemoryCache();
 
-            builder.Services.AddSingleton<Chache>();
 
             var app = builder.Build();
 
