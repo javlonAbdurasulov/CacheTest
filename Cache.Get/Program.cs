@@ -17,6 +17,17 @@ namespace Cache.Get
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddSingleton<Chache>();
+
+
+            builder.Services.AddStackExchangeRedisCache(opt =>
+            {
+                //string connect = builder.Configuration.
+                //GetConnectionString("Redis");
+
+                opt.Configuration = "localhost:6379";
+            }
+            );
+
             builder.Services.AddMemoryCache();
 
 

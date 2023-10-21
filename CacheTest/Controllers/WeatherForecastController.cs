@@ -1,5 +1,6 @@
 using ChacheTest.Application;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace CacheTest.Controllers
@@ -11,21 +12,27 @@ namespace CacheTest.Controllers
     
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IMemoryCache _memoryCache;
-        private readonly Chache _chache;
-        public WeatherForecastController(IMemoryCache memoryCache,ILogger<WeatherForecastController> logger)
+        private readonly Chache _distributedCache;
+        public WeatherForecastController(Chache chache,ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _chache = new Chache(memoryCache);
+            _distributedCache = chache;
         }
         [HttpPost]
         public IActionResult Post()
         {
             string key = "123";
+            _distributedCache.AddToCache(key,"salom");
             
-            //_chache.AddToCache("123", "salom");
+            
+            //if (string.IsNullOrEmpty(cacheMember))
+            //{
+            //    cacheMember = "salom";
+            //    _distributedCache.SetString(key, cacheMember);
+            //    return Ok(cacheMember);
+            //}
 
-            return Ok(_chache.AddToCache("123", "salom"));
+            return Ok("add");
         }
 
         //[HttpPost("[action]")]

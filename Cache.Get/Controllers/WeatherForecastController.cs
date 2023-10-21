@@ -1,6 +1,7 @@
 using ChacheTest.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using StackExchange.Redis;
 using WebGrease;
 
 namespace Cache.Get.Controllers
@@ -12,29 +13,30 @@ namespace Cache.Get.Controllers
         
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly Chache _chache;
+        private readonly Chache _cache;
 
-        public WeatherForecastController(IMemoryCache memoryCache,ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(Chache chache,ILogger<WeatherForecastController> logger)
         {
-            _logger = logger;
-            _chache =new Chache(memoryCache);
+            _logger = logger; 
+            _cache = chache;
         }
         [HttpGet]
         public IActionResult GetObj()
         {
             string key = "123";
-            //var res = _memoryCache.Get(key);
-            var res = _chache.GetFromCache("123");
+            var res = _cache.GetFromCache(key);
+
             return Ok(res);
 
-            //User user = new User()
-            //{
-            //    Id = 1,
-            //    Email = "abdurasulov@gamail.com",
-            //    Name = "javlon"
-            //};
-            //User obj = _memoryCache.Get<User>(key);
-            //return Ok(obj);
+        }
+        [HttpPost]
+        public IActionResult PostObj()
+        {
+            string key = "123";
+            var res = _cache.AddToCache(key,"salom");
+
+            return Ok();
+
         }
 
         

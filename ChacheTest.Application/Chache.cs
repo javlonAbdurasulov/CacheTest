@@ -1,22 +1,26 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using StackExchange.Redis;
 
 namespace ChacheTest.Application
 {
     public class Chache
     {
-        private readonly IMemoryCache _cache;
-        public Chache(IMemoryCache memoryCache)
+        private readonly IDatabase _distributedCache;
+        public Chache()
         {
-            _cache = memoryCache;
+            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost:6379");
+            _distributedCache = redis.GetDatabase();
         }
         public string AddToCache(string key, string value)
         {
-            return _cache.Set(key,value);
+            _distributedCache.StringSet(key,value);
+            return "do";
         }
 
         public string GetFromCache(string key)
         {
-            return _cache.Get(key) as string;
+            return _distributedCache.StringGet(key);
         }
     }
 }
