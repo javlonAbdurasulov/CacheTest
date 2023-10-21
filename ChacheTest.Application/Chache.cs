@@ -11,6 +11,7 @@ namespace ChacheTest.Application
         }
         public string AddToCache(string key, string value)
         {
+            //_cache.GetOrCreate(key,)
             return _cache.Set(key,value);
         }
 
