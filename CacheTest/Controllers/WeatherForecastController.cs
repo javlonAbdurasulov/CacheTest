@@ -16,7 +16,6 @@ namespace CacheTest.Controllers
         public WeatherForecastController(IMemoryCache memoryCache,ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            //_memoryCache = memoryCache;
             _chache = new Chache(memoryCache);
         }
         [HttpPost]
