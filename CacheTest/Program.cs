@@ -16,15 +16,16 @@ namespace CacheTest
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<Chache>();
+            builder.Services.AddLazyCache();
 
-            builder.Services.AddStackExchangeRedisCache(opt =>
-            {
-                //string connect = builder.Configuration.
-                //GetConnectionString("Redis");
+            //builder.Services.AddStackExchangeRedisCache(opt =>
+            //{
+            //    string connect = builder.Configuration.
+            //    GetConnectionString("Redis");
 
-                opt.Configuration = "localhost:6379";
-            }
-            );
+            //    opt.Configuration = connect;
+            //}
+            //);
 
             builder.Services.AddMemoryCache();
 

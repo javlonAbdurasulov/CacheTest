@@ -19,10 +19,10 @@ namespace CacheTest.Controllers
             _distributedCache = chache;
         }
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(string s)
         {
             string key = "123";
-            _distributedCache.AddToCache(key,"salom");
+            _distributedCache.AddToCache(key,s);
             
             
             //if (string.IsNullOrEmpty(cacheMember))
@@ -34,6 +34,14 @@ namespace CacheTest.Controllers
 
             return Ok("add");
         }
+        [HttpGet]
+        public IActionResult Gets()
+        {
+            string key = "123";
+            var res = _distributedCache.GetFromCache(key);
+            return Ok(res);
+        }
+
 
         //[HttpPost("[action]")]
         //public IActionResult Set(string name)

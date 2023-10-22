@@ -1,26 +1,26 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using LazyCache;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
-using StackExchange.Redis;
 
 namespace ChacheTest.Application
 {
     public class Chache
     {
-        private readonly IDatabase _distributedCache;
-        public Chache()
+        private readonly IAppCache _cache;
+        public Chache(IAppCache appCache)
         {
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost:6379");
-            _distributedCache = redis.GetDatabase();
+            _cache = appCache;
         }
         public string AddToCache(string key, string value)
         {
-            _distributedCache.StringSet(key,value);
+            _cache.Add(key,value);
             return "do";
         }
 
         public string GetFromCache(string key)
         {
-            return _distributedCache.StringGet(key);
+                _cache.TryGetValue(key, out string s);
+            return s; 
         }
     }
 }
